@@ -1,0 +1,15 @@
+<p>post-maker works!</p>
+
+<app-maker-sidebar></app-maker-sidebar>
+
+<div class="sub" *ngFor="let sub of subs">
+    {{sub}}
+</div>
+
+<button (click)="addComponent(text_class)">Add Text</button>
+<button (click)="addComponent(image_class)">Add Image</button>
+<button (click)="addComponent(video_class)">Add Video</button>
+
+<ng-template #container>
+
+</ng-template>

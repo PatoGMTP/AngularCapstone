@@ -1,7 +1,40 @@
 
-  <div class="container" style="padding: 50px 0 100px 0">
-    <app-account *ngIf="session; else auth" [session]="session"></app-account>
-    <ng-template #auth>
-      <app-auth></app-auth>
-    </ng-template>
+<header>
+  <span>
+    Title
+  </span>
+
+  <div class="buttons">
+    <button routerLink="home">
+      Home
+    </button>
+
+    <button *ngIf="session" routerLink="profile">
+      Profile
+    </button>
   </div>
+
+  <div class="user_header">
+    <button *ngIf="!session" (click)="signIn()">
+      Log In
+    </button>
+
+    <button *ngIf="session" (click)="print()">
+      Debug
+    </button>
+
+    <button *ngIf="session" (click)="signOut()">
+      Log Out
+    </button>
+  </div>
+</header>
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
+
+
+<!-- <div class="container" style="padding: 50px 0 100px 0">
+  <app-account *ngIf="session" [session]="session"></app-account>
+  <app-auth></app-auth>
+</div> -->

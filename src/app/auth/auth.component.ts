@@ -23,4 +23,9 @@ export class AuthComponent {
     }
   }
 
+  signInGoogle(): void
+  {
+    this.supabase.signInWithGoogle();
+  }
+
 }
