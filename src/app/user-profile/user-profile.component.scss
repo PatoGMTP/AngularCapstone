@@ -1,5 +1,18 @@
 :host
 {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 400px 1fr;
+    gap: 20px;
+}
+
+.sidebar
+{
+    padding: 1rem;
+    border: 1px black solid;
+
+    height: 500px;
+
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
 }

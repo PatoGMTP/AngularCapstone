@@ -1,14 +1,16 @@
 <!-- <p>post works!</p> -->
 
-<div class="image">
-    <img [src]="post.picture" alt="" srcset="">
-</div>
-
-<div class="text">
-    <span>
-        {{post.title}}
-    </span>
-</div>
+<a class="holder" [routerLink]="'/post/' + post.id">
+    <div class="image">
+        <img [src]="post.picture" alt="" srcset="">
+    </div>
+    
+    <div class="text">
+        <span>
+            {{post.title}}
+        </span>
+    </div>
+</a>
 
 
 <!-- <button [routerLink]="'/post/1'">

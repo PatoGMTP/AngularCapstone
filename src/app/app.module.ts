@@ -18,6 +18,7 @@ import { FullPostComponent } from './full-post/full-post.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { PostMakerComponent } from './post-maker/post-maker.component';
 import { MakerSidebarComponent } from './maker-sidebar/maker-sidebar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { MakerSidebarComponent } from './maker-sidebar/maker-sidebar.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
