@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AuthChangeEvent, createClient, Session, SupabaseClient} from '@supabase/supabase-js';
+import { BehaviorSubject } from 'rxjs';
 import {environment} from "../environments/environment";
 import { PostInt } from './postInt';
 import { ProfileInt } from './profileInt';
@@ -16,9 +17,45 @@ export interface Profile {
 })
 export class SupabaseService {
   private supabase: SupabaseClient;
-
+  public updates = new BehaviorSubject<PostInt[]>([]);
+  private posts: PostInt[] = []
+  
   constructor() {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
+    this.init();
+    const posts = this.supabase
+      .from('posts')
+      .on('*', payload => {
+        console.log('Change received!', payload)
+
+        switch(payload.eventType)
+        {
+          case "INSERT":
+            this.posts.push(payload.new)
+            break;
+          case "DELETE":
+            this.posts = this.posts.filter(item => item.id != payload.old.id)
+            break;
+          case "UPDATE":
+            Object.assign(this.posts.find(item => item.id == payload.old.id), payload.new);
+            break;
+        }
+
+        this.updates.next(this.posts);
+      })
+      .subscribe()
+    console.log(posts);
+  }
+  
+  async init(): Promise<void>
+  {
+    let resp = await (this.supabase
+      .from('posts')
+      .select(`*, topics (*), profiles!posts_owner_fkey (*)`)as unknown as Promise<{ data: PostInt[]; error: any; }>);
+
+    this.posts = resp.data;
+
+    this.updates.next(this.posts);
   }
 
   get user() {
@@ -108,15 +145,28 @@ export class SupabaseService {
 
   async testPost(): Promise<void>
   {
-    console.log(await this.supabase.from('posts').upsert({
-      owner: this.user?.id,
-      title: "test",
-      picture: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Missing-image-232x150.png",
-      topic: 4,
-    },
-    {
-      returning: 'representation'
-    }));
+    console.log
+    ( await this.supabase.from('posts').upsert
+      (
+        [
+          {
+            owner: this.user?.id,
+            title: "testers22",
+            picture: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Missing-image-232x150.png",
+            topic: 4,
+          },
+          {
+            owner: this.user?.id,
+            title: "testers33",
+            picture: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Missing-image-232x150.png",
+            topic: 4,
+          }
+        ],
+        {
+          returning: 'representation'
+        }
+      )
+    );
   }
 
   downLoadImage(path: string) {

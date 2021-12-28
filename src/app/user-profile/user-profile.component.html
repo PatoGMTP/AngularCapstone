@@ -1,16 +1,24 @@
-<p>user-profile works!</p>
+<!-- <p>user-profile works!</p> -->
 
-<app-search-filter></app-search-filter>
+<div class="sidebar">
+    <app-search-filter></app-search-filter>
+    
+    <app-fav-posts></app-fav-posts>
+    
+    <!-- <app-fav-topics></app-fav-topics> -->
+</div>
 
-<app-fav-posts></app-fav-posts>
-
-<app-fav-topics></app-fav-topics>
 
 <ul class="posts">
-    <app-post *ngFor="let post of posts; index as i">{{i}}</app-post>
+    <span class="title" style="text-align: center;">
+        My Posts:
+    </span>
+
+    <app-post *ngFor="let post of posts; index as i" [post]="post"></app-post>
+
+    <button [routerLink]="'/maker/1'">
+        Make New Post
+    </button>
 </ul>
 
-<button [routerLink]="'/maker/1'">
-    Make New Post
-</button>
 

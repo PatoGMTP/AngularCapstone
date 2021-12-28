@@ -11,10 +11,13 @@ export class PublicPostsComponent implements OnInit {
 
   posts: PostInt[] = [];
 
-  constructor(private readonly supabase: SupabaseService) { }
+  constructor(private readonly supabase: SupabaseService) 
+  {
+    this.supabase.updates.subscribe(items => this.posts = items)
+  }
 
   ngOnInit(): void {
-    this.supabase.all_posts.then(resp => this.posts = resp.data)
+    // this.supabase.all_posts.then(resp => this.posts = resp.data)
   }
 
   reloadPosts(filtered: PostInt[])
