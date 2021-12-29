@@ -1,0 +1,14 @@
+:host
+{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.board
+{
+    width: 800px;
+    height: 300px;
+    object-fit: cover;
+}

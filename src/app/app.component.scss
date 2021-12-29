@@ -11,7 +11,13 @@ header
     flex-flow: row;
     justify-content: space-between;
 
-    padding: 1rem;
+    padding: 1rem 5rem;
+
+    .buttons
+    {
+        display: flex;
+        gap: 50px;
+    }
 }
 
 .content

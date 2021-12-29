@@ -1,3 +1,17 @@
+:host
+{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.board
+{
+    width: 800px;
+    height: 300px;
+    object-fit: cover;
+}
+
 .grid
 {
     $size: 5;

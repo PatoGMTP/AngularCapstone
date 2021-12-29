@@ -20,6 +20,12 @@ import { SubVideoComponent } from '../sub-video/sub-video.component';
 })
 export class PostMakerComponent implements OnInit {
 
+  testing = {height: "50px", width: "50px"};
+
+  scale: number = 1;
+
+  source: string = "";
+
   size: number = 5;
 
   rows: number[] = [...Array(this.size).keys()];
@@ -62,21 +68,21 @@ export class PostMakerComponent implements OnInit {
   {
     const t = this.CFR.resolveComponentFactory(this.text_class);
     console.log(t.componentType.name)
-    this.texts.push(t);
+    // this.texts.push(t);
     this.comps.push(t);
   }
 
   addImage(): void
   {
     const i = this.CFR.resolveComponentFactory(this.image_class);
-    this.texts.push(i);
+    // this.texts.push(i);
     this.comps.push(i);
   }
 
   addVideo(): void
   {
     const v = this.CFR.resolveComponentFactory(this.video_class);
-    this.texts.push(v);
+    // this.texts.push(v);
     this.comps.push(v);
   }
 

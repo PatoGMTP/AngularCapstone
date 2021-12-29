@@ -1,17 +1,20 @@
-<p>post-maker works!</p>
+<!-- <p>post-maker works!</p>
 
-<app-maker-sidebar></app-maker-sidebar>
+<app-maker-sidebar></app-maker-sidebar> -->
 
-<div
-    class="sub"
-    *ngFor="let sub of subs"
->
-    {{sub}}
-</div>
+<img class="board" [src]="source" alt="" srcset="">
 
+<input type="text" placeholder="Image Source" [(ngModel)]="source">
+
+<input type="text" placeholder="Post Title">
+
+<button>Publish</button>
+
+<!-- <label for="dimensions">Size of component:</label>
+<input type="number" name="dimensions" id="" placeholder="1" [(ngModel)]="scale"> -->
 <button (click)="addText()">Add Text</button>
 <button (click)="addImage()">Add Image</button>
-<button (click)="addVideo()">Add Video</button>
+<!-- <button (click)="addVideo()">Add Video</button> -->
 
 <div
     class="all"
@@ -27,10 +30,10 @@
                 <app-sub-video cdkDrag></app-sub-video>
             </ng-container>
             <ng-container *ngIf="cmp.componentType.name=='SubTextComponent'">
-                <app-sub-text cdkDrag></app-sub-text>
+                <app-sub-text [initial]="scale" cdkDrag></app-sub-text>
             </ng-container>
             <ng-container *ngIf="cmp.componentType.name=='SubImageComponent'">
-                <app-sub-image cdkDrag></app-sub-image>
+                <app-sub-image [initial]="scale" cdkDrag></app-sub-image>
             </ng-container>
         </ng-container>
     </div>

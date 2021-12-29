@@ -1,1 +1,32 @@
-<p>full-post works!</p>
+<img *ngIf="post" class="board" [src]="post.picture" alt="" srcset="">
+
+<span *ngIf="post">{{post.title}}</span>
+
+<div
+    class="all"
+>
+    <div class="grid">
+        <div
+            class="row"
+            *ngFor="let row of rows; index as r"
+        >
+            <div
+                class="col"
+                *ngFor="let col of cols; index as c"
+            >
+                
+                <ng-container *ngFor="let cmp of holders[r][c]">
+                    <ng-container *ngIf="cmp.componentType.name=='SubVideoComponent'">
+                        <app-sub-video></app-sub-video>
+                    </ng-container>
+                    <ng-container *ngIf="cmp.componentType.name=='SubTextComponent'">
+                        <app-sub-text></app-sub-text>
+                    </ng-container>
+                    <ng-container *ngIf="cmp.componentType.name=='SubImageComponent'">
+                        <app-sub-image></app-sub-image>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
