@@ -2,14 +2,24 @@
 
 <div class="left">
     <div class="sidebar">
-        <app-search-filter [posts]="posts" (filter)="reloadPosts($event)"></app-search-filter>
+        <app-search-filter
+            [posts]="posts"
+            [topics]="topics"
+            (filter)="reloadPosts($event)"
+        ></app-search-filter>
     </div>
 </div>
 
 <ul class="posts">
-    <span class="title" style="text-align: center;">
+    <span
+        class="title"
+        style="text-align: center;"
+    >
         All Posts:
     </span>
 
-    <app-post *ngFor="let post of posts; index as i" [post]="post"></app-post>
+    <app-post
+        *ngFor="let post of filtered; index as i"
+        [post]="post"
+    ></app-post>
 </ul>

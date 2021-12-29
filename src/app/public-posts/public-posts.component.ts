@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostInt } from '../postInt';
 import { SupabaseService } from '../supabase.service';
+import { TopicInt } from '../topicInt';
 
 @Component({
   selector: 'app-public-posts',
@@ -11,18 +12,24 @@ export class PublicPostsComponent implements OnInit {
 
   posts: PostInt[] = [];
 
+  topics: TopicInt[] = [];
+
+  filtered: PostInt[] = [];
+
   constructor(private readonly supabase: SupabaseService) 
   {
-    this.supabase.updates.subscribe(items => this.posts = items)
+    this.supabase.updates.subscribe(items => this.posts = items);
+    this.supabase.topics.subscribe(items => this.topics = items);
   }
 
-  ngOnInit(): void {
-    // this.supabase.all_posts.then(resp => this.posts = resp.data)
+  ngOnInit(): void
+  {
+    // this.supabase.all_topics.then(resp => this.topics = resp.data)
   }
 
   reloadPosts(filtered: PostInt[])
   {
-    console.log(filtered);
+    this.filtered = filtered;
   }
 
 }

@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import { FormsModule } from '@angular/forms';
+
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { AccountComponent } from './account/account.component';
@@ -18,7 +21,6 @@ import { FullPostComponent } from './full-post/full-post.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { PostMakerComponent } from './post-maker/post-maker.component';
 import { MakerSidebarComponent } from './maker-sidebar/maker-sidebar.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatCheckboxModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,11 +4,29 @@
     <label for="query">
         Search:
     </label>
-    <input type="text" name="query">
+    <input
+        #search
+        type="text"
+        name="query"
+        [(ngModel)]="query"
+        (ngModelChange)="prepSearch($event)"
+    >
 </div>
 
 <div class="filter">
     <span>
         Filter:
     </span>
+
+    <mat-checkbox
+        [color]="'primary'"
+        (ngModelChange)="setAll()"
+        [(ngModel)]="all"
+    >All</mat-checkbox>
+    <mat-checkbox
+        [color]="'warn'"
+        *ngFor="let item of options"
+        [(ngModel)]="item.value"
+        (ngModelChange)="updateAll()"
+    >{{item.data.name}}</mat-checkbox>
 </div>

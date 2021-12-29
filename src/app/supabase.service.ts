@@ -18,6 +18,7 @@ export interface Profile {
 export class SupabaseService {
   private supabase: SupabaseClient;
   public updates = new BehaviorSubject<PostInt[]>([]);
+  public topics = new BehaviorSubject<TopicInt[]>([]);
   private posts: PostInt[] = []
   
   constructor() {
@@ -49,13 +50,23 @@ export class SupabaseService {
   
   async init(): Promise<void>
   {
-    let resp = await (this.supabase
+    let resp = this.supabase
       .from('posts')
-      .select(`*, topics (*), profiles!posts_owner_fkey (*)`)as unknown as Promise<{ data: PostInt[]; error: any; }>);
+      .select(`*, topics (*), profiles!posts_owner_fkey (*)`)as unknown as Promise<{ data: PostInt[]; error: any; }>;
 
-    this.posts = resp.data;
+    resp.then(item => {
+      this.posts = item.data;
+      this.updates.next(this.posts);
+    });
 
-    this.updates.next(this.posts);
+
+    let resp2 = this.supabase
+      .from('topics')
+      .select(`*`) as unknown as Promise<{data: TopicInt[], error: any}>;
+
+    resp2.then(item => {
+      this.topics.next(item.data)
+    });
   }
 
   get user() {

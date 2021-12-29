@@ -2,25 +2,33 @@
 
 <div class="left">
     <div class="sidebar">
-        <app-search-filter></app-search-filter>
-        
+        <app-search-filter
+            [posts]="posts"
+            [topics]="topics"
+            (filter)="reloadPosts($event)"
+        ></app-search-filter>
+
         <app-fav-posts></app-fav-posts>
-        
+
         <!-- <app-fav-topics></app-fav-topics> -->
     </div>
 </div>
 
 
 <ul class="posts">
-    <span class="title" style="text-align: center;">
+    <span
+        class="title"
+        style="text-align: center;"
+    >
         My Posts:
     </span>
 
-    <app-post *ngFor="let post of posts; index as i" [post]="post"></app-post>
+    <app-post
+        *ngFor="let post of filtered; index as i"
+        [post]="post"
+    ></app-post>
 
-    <button [routerLink]="'/maker/1'">
+    <button [routerLink]="'/maker'">
         Make New Post
     </button>
 </ul>
-
-
