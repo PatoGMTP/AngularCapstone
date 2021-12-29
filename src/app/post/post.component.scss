@@ -46,6 +46,15 @@ img
     $base-color: gray;
 
     background-color: $base-color;
+    
+    display: flex;
+    justify-content: center;
+    // align-items: center;
+
+    & > *
+    {
+        padding-top: 20px;
+    }
 
     &:hover
     {

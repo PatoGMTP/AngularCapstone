@@ -1,1 +1,10 @@
-<p>fav-posts works!</p>
+
+<span>
+    Favorite Posts:
+</span>
+
+<ol>
+    <a *ngFor="let fav of favs" [routerLink]="'/post/' + fav.id">
+        {{fav.title}}
+    </a>
+</ol>

@@ -19,11 +19,14 @@ export class SupabaseService {
   private supabase: SupabaseClient;
   public updates = new BehaviorSubject<PostInt[]>([]);
   public topics = new BehaviorSubject<TopicInt[]>([]);
-  private posts: PostInt[] = []
+  public favs = new BehaviorSubject<PostInt[]>([]);
+  private posts: PostInt[] = [];
+  private fav_posts: PostInt[] = [];
   
   constructor() {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
     this.init();
+
     const posts = this.supabase
       .from('posts')
       .on('*', payload => {
@@ -46,6 +49,29 @@ export class SupabaseService {
       })
       .subscribe()
     console.log(posts);
+
+    const favs = this.supabase
+      .from(`profiles_to_posts:profile=${this.user?.id}`)
+      .on('*', payload => {
+        console.log('Change received!', payload)
+
+        switch(payload.eventType)
+        {
+          case "INSERT":
+            this.fav_posts.push(payload.new)
+            break;
+          case "DELETE":
+            this.fav_posts = this.fav_posts.filter(item => item.id != payload.old.id)
+            break;
+          case "UPDATE":
+            Object.assign(this.fav_posts.find(item => item.id == payload.old.id), payload.new);
+            break;
+        }
+
+        this.updates.next(this.fav_posts);
+      })
+      .subscribe()
+    console.log(favs);
   }
   
   async init(): Promise<void>
@@ -59,13 +85,22 @@ export class SupabaseService {
       this.updates.next(this.posts);
     });
 
-
     let resp2 = this.supabase
       .from('topics')
       .select(`*`) as unknown as Promise<{data: TopicInt[], error: any}>;
 
     resp2.then(item => {
       this.topics.next(item.data)
+    });
+
+    let resp3 = this.supabase
+      .from('profiles_to_posts')
+      .select(`*, posts (*)`)
+      .eq('profile', this.user?.id) as unknown as Promise<{data: any[], error: any}>;
+
+    resp3.then(item => {
+      item.data.forEach(fav => this.fav_posts.push(fav.posts))
+      this.favs.next(this.fav_posts);
     });
   }
 
@@ -97,6 +132,14 @@ export class SupabaseService {
       .from('posts')
       .select(`*, topics (*)`)
       .eq('owner', this.user?.id) as unknown as Promise<{data: PostInt[], error: any}>;
+  }
+
+  get user_favs()
+  {
+    return this.supabase
+      .from('profiles_to_posts')
+      .select(`*, posts (*)`)
+      .eq('profile', this.user?.id) as unknown as Promise<{data: PostInt[], error: any}>;
   }
 
   get user_topics()

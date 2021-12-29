@@ -9,7 +9,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 const routes: Routes = [
   {path:"home", component:PublicPostsComponent},
   {path:"profile", component:UserProfileComponent},
-  {path:"maker/:id", component:PostMakerComponent},
+  {path:"maker", component:PostMakerComponent},
   {path:"post/:id", component:FullPostComponent},
   {path:"", redirectTo:"home", pathMatch:"full"}
 ];

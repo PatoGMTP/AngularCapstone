@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { FormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop'
 
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
@@ -47,6 +48,7 @@ import { MakerSidebarComponent } from './maker-sidebar/maker-sidebar.component';
     BrowserAnimationsModule,
     MatCheckboxModule,
     FormsModule,
+    DragDropModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

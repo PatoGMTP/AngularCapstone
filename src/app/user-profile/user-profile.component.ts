@@ -12,6 +12,8 @@ export class UserProfileComponent implements OnInit {
 
   posts: PostInt[] = [];
 
+  favs: PostInt[] = [];
+
   topics: TopicInt[] = [];
 
   filtered: PostInt[] = [];
@@ -20,12 +22,10 @@ export class UserProfileComponent implements OnInit {
   {
     this.supabase.updates.subscribe(items => this.posts = items.filter(item => item.owner == this.supabase.user?.id))
     this.supabase.topics.subscribe(items => this.topics = items);
+    this.supabase.favs.subscribe(items => this.favs = items);
   }
 
-  ngOnInit(): void
-  {
-    // this.supabase.all_topics.then(resp => this.topics = resp.data)
-  }
+  ngOnInit(): void { }
 
   reloadPosts(filtered: PostInt[])
   {

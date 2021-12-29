@@ -2,7 +2,10 @@
 
 <app-maker-sidebar></app-maker-sidebar>
 
-<div class="sub" *ngFor="let sub of subs">
+<div
+    class="sub"
+    *ngFor="let sub of subs"
+>
     {{sub}}
 </div>
 
@@ -10,6 +13,34 @@
 <button (click)="addComponent(image_class)">Add Image</button>
 <button (click)="addComponent(video_class)">Add Video</button>
 
-<ng-template #container>
+<div
+    class="all"
+    cdkDropListGroup
+>
+    <div
+        class="plate"
+        [cdkDropListData]="components"
+        (cdkDropListDropped)="drop($event)"
+        cdkDropList
+    >
+        <ng-template #container></ng-template>
+    </div>
 
-</ng-template>
+    <div class="grid">
+        <div
+            class="row"
+            *ngFor="let row of rows; index as r"
+        >
+            <div
+                class="col"
+                *ngFor="let col of cols; index as c"
+                cdkDropList
+                [cdkDropListData]="holders[r][c]"
+                (cdkDropListDropped)="drop($event)"
+            >
+                {{r}},{{c}}
+                <ng-container></ng-container>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,14 +8,16 @@
             (filter)="reloadPosts($event)"
         ></app-search-filter>
 
-        <app-fav-posts></app-fav-posts>
-
-        <!-- <app-fav-topics></app-fav-topics> -->
+        <app-fav-posts [favs]="favs"></app-fav-posts>
     </div>
 </div>
 
 
 <ul class="posts">
+    <button [routerLink]="'/maker'">
+        Make New Post
+    </button>
+
     <span
         class="title"
         style="text-align: center;"
@@ -27,8 +29,4 @@
         *ngFor="let post of filtered; index as i"
         [post]="post"
     ></app-post>
-
-    <button [routerLink]="'/maker'">
-        Make New Post
-    </button>
 </ul>

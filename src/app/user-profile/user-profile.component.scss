@@ -1,7 +1,7 @@
 :host
 {
     display: grid;
-    grid-template-columns: 400px 1fr;
+    grid-template-columns: 300px 1fr;
     gap: 20px;
 }
 
@@ -15,4 +15,9 @@
     display: flex;
     flex-flow: column;
     justify-content: space-between;
+}
+
+ul
+{
+    min-width: 600px;
 }
