@@ -34,9 +34,10 @@ export class PostMakerComponent implements OnInit {
 
   // components: ComponentRef<any>[] = []
 
-  texts: SubTextComponent[] = [];
-  images: SubImageComponent[] = [];
-  videos: SubVideoComponent[] = [];
+  texts: any[] = [];
+  images: any[] = [];
+  videos: any[] = [];
+  comps: any[] = [];
 
   holders: ComponentRef<any>[][][] = []
 
@@ -57,6 +58,28 @@ export class PostMakerComponent implements OnInit {
   //   this.components.push(componentFactory);
   // }
 
+  addText(): void
+  {
+    const t = this.CFR.resolveComponentFactory(this.text_class);
+    console.log(t.componentType.name)
+    this.texts.push(t);
+    this.comps.push(t);
+  }
+
+  addImage(): void
+  {
+    const i = this.CFR.resolveComponentFactory(this.image_class);
+    this.texts.push(i);
+    this.comps.push(i);
+  }
+
+  addVideo(): void
+  {
+    const v = this.CFR.resolveComponentFactory(this.video_class);
+    this.texts.push(v);
+    this.comps.push(v);
+  }
+
   ngOnInit(): void
   {
     for (let i = 0; i < this.size; i++)
@@ -74,7 +97,8 @@ export class PostMakerComponent implements OnInit {
   {
     if (event.previousContainer === event.container)
     {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      // moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(this.comps, event.previousIndex, event.currentIndex);
     }
     else
     {

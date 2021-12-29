@@ -9,21 +9,39 @@
     {{sub}}
 </div>
 
-<button (click)="addComponent(text_class)">Add Text</button>
-<button (click)="addComponent(image_class)">Add Image</button>
-<button (click)="addComponent(video_class)">Add Video</button>
+<button (click)="addText()">Add Text</button>
+<button (click)="addImage()">Add Image</button>
+<button (click)="addVideo()">Add Video</button>
 
 <div
     class="all"
     cdkDropListGroup
 >
     <div
-        class="plate"
-        [cdkDropListData]="components"
+        class="tester"
+        [cdkDropListData]="comps"
+        cdkDropList
+    >
+        <ng-container *ngFor="let cmp of comps">
+            <ng-container *ngIf="cmp.componentType.name=='SubVideoComponent'">
+                <app-sub-video cdkDrag></app-sub-video>
+            </ng-container>
+            <ng-container *ngIf="cmp.componentType.name=='SubTextComponent'">
+                <app-sub-text cdkDrag></app-sub-text>
+            </ng-container>
+            <ng-container *ngIf="cmp.componentType.name=='SubImageComponent'">
+                <app-sub-image cdkDrag></app-sub-image>
+            </ng-container>
+        </ng-container>
+    </div>
+
+    <div
+        class="texts"
+        [cdkDropListData]="texts"
         (cdkDropListDropped)="drop($event)"
         cdkDropList
     >
-        <ng-template #container></ng-template>
+        <ng-template #texts></ng-template>
     </div>
 
     <div class="grid">
@@ -38,8 +56,18 @@
                 [cdkDropListData]="holders[r][c]"
                 (cdkDropListDropped)="drop($event)"
             >
-                {{r}},{{c}}
-                <ng-container></ng-container>
+                
+                <ng-container *ngFor="let cmp of holders[r][c]">
+                    <ng-container *ngIf="cmp.componentType.name=='SubVideoComponent'">
+                        <app-sub-video cdkDrag></app-sub-video>
+                    </ng-container>
+                    <ng-container *ngIf="cmp.componentType.name=='SubTextComponent'">
+                        <app-sub-text cdkDrag></app-sub-text>
+                    </ng-container>
+                    <ng-container *ngIf="cmp.componentType.name=='SubImageComponent'">
+                        <app-sub-image cdkDrag></app-sub-image>
+                    </ng-container>
+                </ng-container>
             </div>
         </div>
     </div>
